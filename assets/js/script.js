@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
   for (let button of buttons) {
     button.addEventListener('click', function () {
       if (this.getAttribute('data-type') === 'submit') {
-        alert('You clicked Submit!');
+        checkAnswer();
       } else {
         let gameType = this.getAttribute('data-type');
         runGame(gameType);
@@ -38,13 +38,31 @@ function runGame(gameType) {
   }
 }
 
-function checkAnswer() {}
+/**
+ * check the answer against the first element in
+ * the returned calculateCorrectAnswer array
+ */
+function checkAnswer() {
+  let userAnswer = parseInt(document.getElementById('answer-box').value);
+  let calculatedAnswer = calculateCorrectAnswer();
+  let isCorrect = userAnswer === calculatedAnswer[0];
+
+  if (isCorrect) {
+    alert('You got it right.');
+  } else {
+    alert(
+      `You answered ${userAnswer}. This is incorrect. The correct answer was ${calculatedAnswer[0]}`
+    );
+  }
+
+  runGame(calculatedAnswer[1]);
+}
 
 /**
  * Get the operand (the numbers) and the operator (plus, minus, etc)
  * directly from the DOMException, and returns the correct checkAnswer.
  */
-function CalculateCorrectAnswer() {
+function calculateCorrectAnswer() {
   let operand1 = parseInt(document.getElementById('operand1').innerText);
   let operand2 = parseInt(document.getElementById('operand2').innerText);
   let operator = document.getElementById('operator').innerText;
@@ -64,7 +82,7 @@ function incrementWrongAnswer() {}
 function displayAdditionQuestion(operand1, operand2) {
   document.getElementById('operand1').textContent = operand1;
   document.getElementById('operand2').textContent = operand2;
-  document.getElementById('opreator').textContent = '+';
+  document.getElementById('operator').textContent = '+';
 }
 
 function displaySubtractQuestion() {}
