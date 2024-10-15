@@ -17,6 +17,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // allow enter key to submit answer
+  document
+    .getElementById('answer-box')
+    .addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') {
+        checkAnswer();
+      }
+    });
+
   runGame('addition');
 });
 
@@ -26,6 +35,12 @@ document.addEventListener('DOMContentLoaded', function () {
  * and after the user's answer has been processed
  */
 function runGame(gameType) {
+  // reset the answer box after each go
+  document.getElementById('answer-box').value = '';
+
+  // set cursor to answerbox at start and after each go
+  document.getElementById('answer-box').focus();
+
   // create two random numbers between 1 and 25
   let num1 = Math.floor(Math.random() * 25) + 1;
   let num2 = Math.floor(Math.random() * 25) + 1;
@@ -108,6 +123,7 @@ function displayAdditionQuestion(operand1, operand2) {
 }
 
 function displaySubtractQuestion(operand1, operand2) {
+  // check to see which number is bigger. biggest number first
   document.getElementById('operand1').textContent =
     operand1 > operand2 ? operand1 : operand2;
   document.getElementById('operand2').textContent =
