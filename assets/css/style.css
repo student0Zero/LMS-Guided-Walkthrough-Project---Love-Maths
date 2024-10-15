@@ -173,7 +173,7 @@ body {
 
 
 /* MEDIA QUERIES */
-@media (mac-width: 410px) {
+@media (max-width: 410px) {
     .controls-area {
         width: 100%;
     }
